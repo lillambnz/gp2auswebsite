@@ -4,70 +4,64 @@ import { motion } from "framer-motion"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
-import { 
-  Heart, 
-  Users, 
-  Target, 
-  Award,
+import { Button } from "@/components/ui/button"
+import {
+  Heart,
+  Users,
+  Target,
   Globe,
   Stethoscope,
-  Star
+  Star,
+  ArrowRight,
 } from "lucide-react"
 
 const values = [
   {
     icon: Heart,
-    title: "Doctor-Focused",
-    description: "Built by GPs, for GPs. We understand your journey because we've lived it.",
+    title: "GP-First",
+    description: "Everything we do is built around the GP and the practice — not the process.",
   },
   {
     icon: Target,
-    title: "Accuracy First",
-    description: "Every piece of information is verified and regularly updated to ensure reliability.",
+    title: "Precision Over Volume",
+    description: "We don&apos;t flood practices with CVs. We match the right person to the right role.",
   },
   {
     icon: Users,
-    title: "Community Driven",
-    description: "Powered by the collective wisdom of thousands of international GPs in Australia.",
+    title: "Long-Term Relationships",
+    description: "We build lasting partnerships with both GPs and practices. Not just placements.",
   },
   {
     icon: Globe,
-    title: "Comprehensive",
-    description: "From registration to retirement — we've got every step of your journey covered.",
+    title: "UK Specialists",
+    description: "We focus exclusively on UK-trained GPs. That depth of focus is our advantage.",
   },
-]
-
-const stats = [
-  { value: "15,000+", label: "GPs Helped" },
-  { value: "50+", label: "Countries Represented" },
-  { value: "98%", label: "Success Rate" },
-  { value: "2019", label: "Founded" },
 ]
 
 const team = [
   {
     name: "Dr. Sarah Mitchell",
-    role: "Co-Founder & GP",
-    image: "SM",
-    bio: "Former UK GP who relocated to Melbourne in 2015. Passionate about helping others navigate the same journey.",
+    role: "Co-Founder",
+    initials: "SM",
+    bio: "UK-trained GP who relocated to Melbourne. Founded GP2Aus to make the journey easier for others.",
   },
   {
     name: "Dr. James Chen",
-    role: "Co-Founder & GP",
-    image: "JC",
-    bio: "Canadian-trained GP now practicing in Sydney. Specialist in IMG registration pathways.",
+    role: "Co-Founder",
+    initials: "JC",
+    bio: "GP with experience across NHS and Australian general practice. Specialist in IMG registration pathways.",
   },
   {
     name: "Priya Sharma",
     role: "Head of Operations",
-    image: "PS",
-    bio: "Former migration agent specializing in medical visas. Ensures smooth transitions for all our doctors.",
+    initials: "PS",
+    bio: "Former migration agent specialising in medical visas. Ensures every placement runs smoothly.",
   },
   {
     name: "Dr. Michael Roberts",
     role: "Medical Advisor",
-    image: "MR",
-    bio: "RACGP examiner with 20+ years experience. Guides our clinical content and resources.",
+    initials: "MR",
+    bio: "RACGP examiner with 20+ years experience. Guides our clinical vetting and quality standards.",
   },
 ]
 
@@ -75,20 +69,19 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
-      
+
       {/* Hero */}
       <section className="pt-32 pb-20 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
-        {/* Stars */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0.2, 0.6, 0.2] }}
-              transition={{ 
+              transition={{
                 duration: 2 + (i % 3) * 0.5,
                 repeat: Infinity,
-                delay: i * 0.1
+                delay: i * 0.1,
               }}
               className="absolute w-1 h-1 bg-white rounded-full"
               style={{
@@ -98,7 +91,7 @@ export default function AboutPage() {
             />
           ))}
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -107,26 +100,23 @@ export default function AboutPage() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
               <Star className="w-4 h-4 fill-amber-400" />
-              About Us
+              About GP2Aus
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Helping GPs Build Their{" "}
+              The UK to Australia{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
-                Australian Dream
+                GP Recruitment Specialists
               </span>
             </h1>
             <p className="text-xl text-sky-200 max-w-2xl mx-auto">
-              We&apos;re a team of international doctors and healthcare professionals 
-              dedicated to making your transition to Australian general practice 
-              as smooth as possible.
+              We are a specialist recruitment agency connecting UK-trained GPs with Australian practices. We handle the process so you can focus on the opportunity.
             </p>
           </motion.div>
         </div>
-        
-        {/* Mountain silhouette at bottom */}
-        <svg 
+
+        <svg
           className="absolute bottom-0 left-0 right-0 w-full h-24"
-          viewBox="0 0 1440 96" 
+          viewBox="0 0 1440 96"
           preserveAspectRatio="none"
         >
           <path
@@ -141,7 +131,12 @@ export default function AboutPage() {
       <section className="py-12 bg-[#082f4a] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {[
+              { value: "500+", label: "Successful Placements" },
+              { value: "200+", label: "Partner Practices" },
+              { value: "Founded 2019", label: "Years of Experience" },
+              { value: "UK Only", label: "Our Specialisation" },
+            ].map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -149,7 +144,7 @@ export default function AboutPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-4xl font-bold text-amber-300 mb-1">{stat.value}</div>
+                <div className="text-3xl font-bold text-amber-300 mb-1">{stat.value}</div>
                 <div className="text-sm text-sky-400">{stat.label}</div>
               </motion.div>
             ))}
@@ -170,24 +165,16 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-4 text-sky-300">
                 <p>
-                  GP2Aus was born from a simple frustration: the process of moving to Australia 
-                  as an international GP was unnecessarily complicated, opaque, and lonely.
+                  GP2Aus was founded in 2019 by two UK-trained GPs who had personally navigated the process of moving to Australia. They knew firsthand how complicated it could be — and how much smoother it would have been with the right support.
                 </p>
                 <p>
-                  In 2019, Dr. Sarah Mitchell and Dr. James Chen, both international medical 
-                  graduates who had successfully navigated the Australian healthcare system, 
-                  decided to create the resource they wished they had when they started.
+                  What started as a small recruitment consultancy has grown into a specialist agency with a network of 200+ Australian practices and a proven track record of over 500 successful placements.
                 </p>
                 <p>
-                  What began as a simple blog sharing tips about AHPRA registration has grown 
-                  into a comprehensive platform serving thousands of GPs from over 50 countries. 
-                  We&apos;ve helped doctors from the UK, Ireland, South Africa, India, Canada, 
-                  Singapore, and beyond build successful careers in Australia.
+                  We focus exclusively on UK-trained GPs because that focus makes us better. We understand your qualifications, your NHS experience, your motivations, and what Australian practices are really looking for.
                 </p>
                 <p>
-                  Today, GP2Aus is more than just a website — it&apos;s a community. We offer 
-                  tools, resources, job connections, and personalized support to help you at 
-                  every step of your journey.
+                  Our mission is simple: connect the right GP with the right practice, and manage every step of the journey in between.
                 </p>
               </div>
             </motion.div>
@@ -200,7 +187,7 @@ export default function AboutPage() {
                 <div className="text-center">
                   <Stethoscope className="w-32 h-32 text-amber-400 mx-auto mb-6" />
                   <p className="text-2xl font-bold text-white">GP2Aus</p>
-                  <p className="text-sky-400">Your partner in the journey</p>
+                  <p className="text-sky-400">UK to Australia. Done properly.</p>
                 </div>
               </div>
             </motion.div>
@@ -216,7 +203,7 @@ export default function AboutPage() {
               Our Values
             </h2>
             <p className="text-lg text-sky-300">
-              The principles that guide everything we do
+              The principles that guide how we work with GPs and practices alike.
             </p>
           </div>
 
@@ -251,7 +238,7 @@ export default function AboutPage() {
               Meet Our Team
             </h2>
             <p className="text-lg text-sky-300">
-              Passionate healthcare professionals dedicated to your success
+              Healthcare professionals and recruitment specialists dedicated to your success.
             </p>
           </div>
 
@@ -266,7 +253,7 @@ export default function AboutPage() {
                 <Card className="h-full text-center bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all">
                   <CardContent className="p-6">
                     <div className="w-20 h-20 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
-                      {member.image}
+                      {member.initials}
                     </div>
                     <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                     <p className="text-sm text-amber-300 mb-3">{member.role}</p>
@@ -279,51 +266,34 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners */}
-      <section className="py-20 bg-[#082f4a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">Our Partners</h2>
-            <p className="text-sky-300">
-              We work with leading organizations to provide you with the best resources and opportunities
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {["RACGP", "ACRRM", "AMC", "AHPRA"].map((partner, index) => (
-              <motion.div
-                key={partner}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center justify-center p-8 bg-white/5 rounded-xl border border-white/10"
-              >
-                <span className="text-xl font-bold text-sky-400">{partner}</span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Awards */}
+      {/* CTA */}
       <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
-        {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
         </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-          <Award className="w-16 h-16 text-white mx-auto mb-6" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-            Recognized for Excellence
+            Ready to Work With Us?
           </h2>
-          <p className="text-xl text-orange-100 max-w-2xl mx-auto">
-            Proud recipients of the 2023 Australian Healthcare Innovation Award 
-            for our contribution to supporting international medical graduates.
+          <p className="text-xl text-orange-100 mb-8">
+            Whether you&apos;re a GP looking to relocate or a practice seeking talent — let&apos;s talk.
           </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              className="bg-white text-orange-700 hover:bg-gray-100"
+              onClick={() => window.location.href = '/contact/'}
+            >
+              Get in Touch
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </div>
         </div>
       </section>
 

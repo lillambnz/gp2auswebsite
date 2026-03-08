@@ -5,111 +5,100 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { 
-  Building2, 
-  Users, 
-  Target, 
-  TrendingUp,
+import {
+  Users,
+  Target,
+  ShieldCheck,
+  RefreshCw,
   CheckCircle,
   Star,
   ArrowRight,
-  Briefcase,
-  Globe,
-  Clock
+  ClipboardList,
+  MessagesSquare,
+  CheckCircle2,
 } from "lucide-react"
 
 const benefits = [
   {
     icon: Users,
-    title: "Access to 15,000+ GPs",
-    description: "Connect with qualified international GPs actively seeking positions in Australia.",
+    title: "Pre-Screened UK GPs",
+    description: "Every GP in our network is UK-trained, motivated, and has been vetted by our team before we recommend them to practices.",
   },
   {
     icon: Target,
-    title: "Pre-Screened Candidates",
-    description: "Our GPs understand the registration process and are ready to make the move.",
+    title: "Precision Matching",
+    description: "We don&apos;t send you a pile of CVs. We match your specific vacancy to the right candidates and present a curated shortlist.",
   },
   {
-    icon: TrendingUp,
-    title: "Faster Time to Hire",
-    description: "Average 48-hour response time vs weeks with traditional job boards.",
+    icon: ShieldCheck,
+    title: "Full Vetting & Compliance",
+    description: "We handle AHPRA eligibility checks, reference verification, and visa sponsorship guidance so your practice stays compliant.",
   },
   {
-    icon: Globe,
-    title: "International Reach",
-    description: "Reach GPs from UK, Ireland, South Africa, India, Canada, and more.",
+    icon: RefreshCw,
+    title: "Replacement Guarantee",
+    description: "If a placed GP leaves within the agreed period, we will source a replacement at no additional cost.",
   },
 ]
 
 const packages = [
   {
-    name: "Basic Listing",
+    name: "Basic",
     price: "$299",
-    period: "per job",
-    description: "Standard job posting for 30 days",
+    period: "per vacancy",
+    description: "For practices with a single GP opening",
     features: [
-      "30-day job listing",
-      "Appear in job search",
-      "Email to matching candidates",
-      "Basic analytics",
-      "Standard support",
+      "Vacancy listing in our network",
+      "GP candidate matching",
+      "Up to 3 candidate profiles",
+      "Email support",
     ],
-    cta: "Post a Job",
+    cta: "Post a Vacancy",
     popular: false,
   },
   {
-    name: "Featured Listing",
+    name: "Featured",
     price: "$499",
-    period: "per job",
-    description: "Highlighted posting with priority placement",
+    period: "per vacancy",
+    description: "Priority matching with full placement support",
     features: [
-      "60-day job listing",
-      "Featured at top of search",
-      "Priority email to candidates",
-      "Advanced analytics",
-      "Dedicated support",
-      "Social media promotion",
-      "Newsletter feature",
+      "Priority placement in our GP network",
+      "Up to 6 candidate profiles",
+      "Interview coordination",
+      "Onboarding support guidance",
+      "Dedicated account contact",
+      "Replacement guarantee (90 days)",
     ],
-    cta: "Get Featured",
+    cta: "Get Started",
     popular: true,
   },
   {
-    name: "Recruiter Partnership",
+    name: "Partnership",
     price: "$1,999",
     period: "per month",
-    description: "Unlimited postings for agencies",
+    description: "Ongoing recruitment for multiple or recurring vacancies",
     features: [
-      "Unlimited job postings",
+      "Unlimited vacancy postings",
       "All Featured benefits",
-      "API access",
-      "Bulk upload tools",
-      "Account manager",
-      "Priority candidate matching",
-      "White-label options",
-      "Custom integrations",
+      "Dedicated account manager",
+      "Priority candidate access",
+      "Extended replacement guarantee",
+      "Quarterly talent pipeline briefings",
     ],
     cta: "Become a Partner",
     popular: false,
   },
 ]
 
-const stats = [
-  { value: "15,000+", label: "GPs in Network" },
-  { value: "500+", label: "Partner Clinics" },
-  { value: "48hr", label: "Avg. Response" },
-  { value: "92%", label: "Fill Rate" },
-]
-
 const testimonials = [
   {
-    quote: "We filled our DPA position in under 2 weeks. The quality of candidates from GP2Aus was exceptional.",
+    quote: "We filled our DPA position in under two weeks. The candidates GP2Aus presented were genuinely interested in the role and the location — not just looking for any job.",
     author: "Dr. Michael Roberts",
     role: "Practice Principal",
     clinic: "Coastal Medical Centre, QLD",
   },
   {
-    quote: "Best ROI of any recruitment channel we've used. The candidates are actually serious about relocating.",
+    quote: "The quality of UK GPs they sent us was exceptional. All had strong references and were well-prepared for the Australian environment. We&apos;ve now placed three GPs through them.",
     author: "Sarah Thompson",
     role: "Practice Manager",
     clinic: "Sydney Family Practice, NSW",
@@ -120,20 +109,19 @@ export default function PartnershipsPage() {
   return (
     <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
-      
+
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
-        {/* Stars */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0.2, 0.6, 0.2] }}
-              transition={{ 
+              transition={{
                 duration: 2 + (i % 3) * 0.5,
                 repeat: Infinity,
-                delay: i * 0.1
+                delay: i * 0.1,
               }}
               className="absolute w-1 h-1 bg-white rounded-full"
               style={{
@@ -143,7 +131,7 @@ export default function PartnershipsPage() {
             />
           ))}
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -152,43 +140,41 @@ export default function PartnershipsPage() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
               <Star className="w-4 h-4 fill-amber-400" />
-              For Clinics & Recruiters
+              For Australian Practices
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Hire the Best{" "}
+              Hire Pre-Screened{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
-                International GPs
+                UK-Trained GPs
               </span>
             </h1>
             <p className="text-xl text-sky-200 mb-8">
-              Connect with thousands of qualified GPs actively seeking positions in Australia. 
-              Faster hires, better candidates, less hassle.
+              We connect Australian practices with motivated, qualified GPs from the UK who are ready to relocate. Less hassle, better candidates, faster hires.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
+              <Button
+                size="lg"
                 className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
-                onClick={() => window.location.href='/jobs/post/'}
+                onClick={() => window.location.href = '/contact/'}
               >
-                Post a Job
+                Post a Vacancy
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
+              <Button
+                size="lg"
+                variant="outline"
                 className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
-                onClick={() => window.location.href='/contact/'}
+                onClick={() => window.location.href = '/contact/'}
               >
-                Talk to Sales
+                Talk to Our Team
               </Button>
             </div>
           </motion.div>
         </div>
-        
-        {/* Mountain silhouette at bottom */}
-        <svg 
+
+        <svg
           className="absolute bottom-0 left-0 right-0 w-full h-24"
-          viewBox="0 0 1440 96" 
+          viewBox="0 0 1440 96"
           preserveAspectRatio="none"
         >
           <path
@@ -203,7 +189,12 @@ export default function PartnershipsPage() {
       <section className="py-12 bg-[#082f4a] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
+            {[
+              { value: "500+", label: "GP Placements Made" },
+              { value: "200+", label: "Partner Practices" },
+              { value: "92%", label: "Fill Rate" },
+              { value: "2 weeks", label: "Avg. Time to Shortlist" },
+            ].map((stat, index) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
@@ -219,15 +210,15 @@ export default function PartnershipsPage() {
         </div>
       </section>
 
-      {/* Benefits */}
+      {/* What We Offer */}
       <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Why Partner With GP2Aus?
+              What We Offer Practices
             </h2>
             <p className="text-lg text-sky-300">
-              We specialize in connecting Australian clinics with international medical talent.
+              We do the heavy lifting so your practice team can focus on what matters — patient care.
             </p>
           </div>
 
@@ -251,36 +242,41 @@ export default function PartnershipsPage() {
         </div>
       </section>
 
-      {/* How It Works */}
+      {/* How It Works for Practices */}
       <section className="py-20 bg-[#082f4a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               How It Works
             </h2>
+            <p className="text-lg text-sky-300">Four straightforward steps to your next GP hire.</p>
           </div>
 
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
+                icon: ClipboardList,
                 step: "1",
-                title: "Post Your Job",
-                desc: "Create your listing in minutes. Specify requirements, salary, and DPA status.",
+                title: "Post your vacancy",
+                desc: "Tell us your requirements — location, hours, billing model, special interests. No obligation.",
               },
               {
+                icon: Users,
                 step: "2",
-                title: "We Match Candidates",
-                desc: "Our algorithm shows your job to relevant GPs based on location, visa status, and preferences.",
+                title: "We source pre-screened GPs",
+                desc: "We match your role to motivated, UK-trained GPs from our network who are ready to relocate.",
               },
               {
+                icon: MessagesSquare,
                 step: "3",
-                title: "Review Applications",
-                desc: "Receive applications directly. View CVs, credentials, and candidate profiles.",
+                title: "Interview your shortlist",
+                desc: "We present a curated shortlist. You conduct interviews and choose your preferred candidate.",
               },
               {
+                icon: CheckCircle2,
                 step: "4",
-                title: "Hire & Onboard",
-                desc: "Interview your favorites and make your hire. We provide resources to help with onboarding.",
+                title: "We handle onboarding support",
+                desc: "We support your new GP through visa, AHPRA, and relocation logistics until their first day.",
               },
             ].map((item, index) => (
               <motion.div
@@ -303,21 +299,23 @@ export default function PartnershipsPage() {
 
       {/* Pricing */}
       <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
-        {/* Decorative pattern */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '40px 40px'
-          }} />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+            }}
+          />
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Recruitment Packages
             </h2>
             <p className="text-lg text-orange-100">
-              Choose the option that works best for your hiring needs.
+              Choose the option that fits your hiring needs.
             </p>
           </div>
 
@@ -328,22 +326,23 @@ export default function PartnershipsPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
+                className="relative"
               >
-                <Card className={`h-full bg-white/10 backdrop-blur-sm border-white/20 ${pkg.popular ? 'ring-1 ring-white/30' : ''}`}>
-                  {pkg.popular && (
-                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <span className="px-4 py-1 bg-white text-orange-600 text-sm font-medium rounded-full flex items-center gap-1">
-                        <Star className="w-4 h-4" />
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
+                {pkg.popular && (
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                    <span className="px-4 py-1 bg-white text-orange-600 text-sm font-medium rounded-full flex items-center gap-1">
+                      <Star className="w-4 h-4" />
+                      Most Popular
+                    </span>
+                  </div>
+                )}
+                <Card className={`h-full bg-white/10 backdrop-blur-sm border-white/20 ${pkg.popular ? "ring-1 ring-white/30" : ""}`}>
                   <CardHeader>
                     <CardTitle className="text-xl text-white">{pkg.name}</CardTitle>
                     <p className="text-sm text-orange-200">{pkg.description}</p>
                     <div className="mt-4">
                       <span className="text-4xl font-bold text-white">{pkg.price}</span>
-                      <span className="text-orange-200">{pkg.period}</span>
+                      <span className="text-orange-200 ml-1">{pkg.period}</span>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -355,12 +354,13 @@ export default function PartnershipsPage() {
                         </li>
                       ))}
                     </ul>
-                    <Button 
-                      className={`w-full ${pkg.popular 
-                        ? 'bg-white text-orange-600 hover:bg-gray-100' 
-                        : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+                    <Button
+                      className={`w-full ${
+                        pkg.popular
+                          ? "bg-white text-orange-600 hover:bg-gray-100"
+                          : "bg-white/10 text-white hover:bg-white/20 border border-white/20"
                       }`}
-                      onClick={() => window.location.href='/jobs/post/'}
+                      onClick={() => window.location.href = '/contact/'}
                     >
                       {pkg.cta}
                     </Button>
@@ -372,14 +372,14 @@ export default function PartnershipsPage() {
 
           <div className="mt-12 text-center">
             <p className="text-orange-100 mb-4">
-              Need a custom solution? We offer tailored packages for large practices and hospital networks.
+              Need a custom arrangement for a hospital network or group practice? Let&apos;s talk.
             </p>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="border-white/20 text-white hover:bg-white/10 bg-transparent"
-              onClick={() => window.location.href='/contact/'}
+              onClick={() => window.location.href = '/contact/'}
             >
-              Contact Sales
+              Contact Our Team
             </Button>
           </div>
         </div>
@@ -390,7 +390,7 @@ export default function PartnershipsPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
-              What Clinics Say
+              What Practices Say
             </h2>
           </div>
 
@@ -415,43 +415,6 @@ export default function PartnershipsPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-20 bg-[#082f4a]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {[
-              {
-                q: "How quickly can we expect applications?",
-                a: "Most clinics receive their first applications within 24-48 hours of posting.",
-              },
-              {
-                q: "Do you screen candidates?",
-                a: "Yes, we verify AHPRA registration status and visa eligibility before matching.",
-              },
-              {
-                q: "What if we don't find a suitable candidate?",
-                a: "We'll extend your listing or provide a credit for future postings.",
-              },
-              {
-                q: "Can we edit our job posting?",
-                a: "Yes, you can edit your listing anytime from your dashboard.",
-              },
-            ].map((faq, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10">
-                <h3 className="font-semibold text-white mb-2">{faq.q}</h3>
-                <p className="text-sky-400 text-sm">{faq.a}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* CTA */}
       <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -459,24 +422,24 @@ export default function PartnershipsPage() {
             Ready to Find Your Next GP?
           </h2>
           <p className="text-lg text-sky-300 mb-8">
-            Join 500+ clinics already using GP2Aus to hire international talent.
+            Join 200+ practices already working with GP2Aus to recruit UK-trained talent.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
-              onClick={() => window.location.href='/jobs/post/'}
+              onClick={() => window.location.href = '/contact/'}
             >
-              Post Your First Job
+              Post a Vacancy
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
-              onClick={() => window.location.href='/contact/'}
+              onClick={() => window.location.href = '/contact/'}
             >
-              Schedule a Demo
+              Talk to Our Team
             </Button>
           </div>
         </div>

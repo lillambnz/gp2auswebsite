@@ -1,28 +1,28 @@
 "use client"
 
-import Link from "next/link"
 import { MapPin, Mail, Phone, Linkedin, Twitter, Facebook, Instagram } from "lucide-react"
 
 const footerLinks = {
-  resources: [
+  forGPs: [
+    { name: "Find a Job", href: "/jobs" },
     { name: "Registration Guide", href: "/registration" },
-    { name: "Visa Pathways", href: "/visas" },
-    { name: "Cost Calculator", href: "/calculator" },
-    { name: "Documents Checklist", href: "/checklist" },
-    { name: "Location Explorer", href: "/locations" },
+    { name: "Visa Information", href: "/visas" },
+    { name: "Location Guide", href: "/locations" },
+    { name: "Relocation Costs", href: "/calculator" },
+  ],
+  forPractices: [
+    { name: "Post a Vacancy", href: "/partnerships" },
+    { name: "How It Works", href: "/partnerships#how" },
+    { name: "Recruitment Packages", href: "/partnerships#pricing" },
+    { name: "Contact Sales", href: "/contact" },
   ],
   company: [
     { name: "About Us", href: "/about" },
-    { name: "GP Jobs", href: "/jobs" },
-    { name: "Resources", href: "/resources" },
-    { name: "Pricing", href: "/pricing" },
     { name: "Contact", href: "/contact" },
-    { name: "Partnerships", href: "/partnerships" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
     { name: "Terms of Service", href: "/terms" },
-    { name: "Cookie Policy", href: "/cookies" },
   ],
 }
 
@@ -47,8 +47,7 @@ export function Footer() {
               <span className="text-xl font-bold text-white">GP2Aus</span>
             </a>
             <p className="text-sky-400 mb-6 max-w-sm">
-              The complete guide for international GPs moving to Australia. 
-              Registration, jobs, relocation — everything you need under the Australian sun.
+              The UK to Australia GP recruitment specialists. We connect UK-trained GPs with leading Australian practices and manage every step of the journey.
             </p>
             <div className="space-y-3">
               <a href="mailto:hello@gp2aus.com" className="flex items-center gap-3 text-sm hover:text-amber-400 transition-colors">
@@ -66,11 +65,11 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Resources */}
+          {/* For GPs */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Resources</h3>
+            <h3 className="text-white font-semibold mb-4">For GPs</h3>
             <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
+              {footerLinks.forGPs.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className="text-sm hover:text-amber-400 transition-colors">
                     {link.name}
@@ -80,17 +79,29 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
+          {/* For Practices */}
           <div>
-            <h3 className="text-white font-semibold mb-4">Company</h3>
+            <h3 className="text-white font-semibold mb-4">For Practices</h3>
             <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
+              {footerLinks.forPractices.map((link) => (
                 <li key={link.name}>
                   <a href={link.href} className="text-sm hover:text-amber-400 transition-colors">
                     {link.name}
                   </a>
                 </li>
               ))}
+              <li className="pt-2 border-t border-white/10">
+                <h3 className="text-white font-semibold mb-3">Company</h3>
+                <ul className="space-y-3">
+                  {footerLinks.company.map((link) => (
+                    <li key={link.name}>
+                      <a href={link.href} className="text-sm hover:text-amber-400 transition-colors">
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
             </ul>
           </div>
 
@@ -112,7 +123,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-sm text-sky-500">
-            © {new Date().getFullYear()} GP2Aus. All rights reserved.
+            © {new Date().getFullYear()} GP2Aus. All rights reserved. UK to Australia GP Recruitment Specialists.
           </p>
           <div className="flex items-center gap-4">
             {socialLinks.map((social) => (

@@ -6,17 +6,14 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { 
-  Mail, 
-  Phone, 
-  MapPin, 
+import {
+  Mail,
+  Phone,
+  MapPin,
   Clock,
   Send,
-  Facebook,
-  Video,
   CheckCircle,
   Star,
-  ArrowRight
 } from "lucide-react"
 
 const contactMethods = [
@@ -37,21 +34,22 @@ const contactMethods = [
     href: "tel:1800472287",
   },
   {
-    icon: Video,
-    title: "Book a Consultation",
-    description: "30-min video call with our team",
-    value: "Free for new inquiries",
-    action: "Book Now",
-    href: "#consultation",
+    icon: Clock,
+    title: "Response Time",
+    description: "We aim to respond to all enquiries",
+    value: "Within 24 hours",
+    action: "Book a Call",
+    href: "mailto:hello@gp2aus.com?subject=Book a call",
   },
 ]
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
+    userType: "",
     name: "",
     email: "",
+    phone: "",
     country: "",
-    stage: "",
     message: "",
   })
   const [submitted, setSubmitted] = useState(false)
@@ -59,26 +57,24 @@ export default function ContactPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitted(true)
-    // In a real implementation, this would send the data to a server
   }
 
   return (
     <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
-      
+
       {/* Hero */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
-        {/* Stars */}
         <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
+          {[...Array(12)].map((_, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0 }}
               animate={{ opacity: [0.2, 0.6, 0.2] }}
-              transition={{ 
+              transition={{
                 duration: 2 + (i % 3) * 0.5,
                 repeat: Infinity,
-                delay: i * 0.1
+                delay: i * 0.1,
               }}
               className="absolute w-1 h-1 bg-white rounded-full"
               style={{
@@ -88,7 +84,7 @@ export default function ContactPage() {
             />
           ))}
         </div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -97,25 +93,23 @@ export default function ContactPage() {
           >
             <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
               <Star className="w-4 h-4 fill-amber-400" />
-              Contact Us
+              Get in Touch
             </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Let&apos;s Start Your{" "}
+              Let&apos;s Start the{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
-                Journey
+                Conversation
               </span>
             </h1>
             <p className="text-xl text-sky-200 max-w-2xl mx-auto">
-              Have questions about moving to Australia as a GP? 
-              Our team is here to help you every step of the way.
+              Whether you&apos;re a UK GP ready to make the move, or an Australian practice looking for talent — we&apos;re here to help.
             </p>
           </motion.div>
         </div>
-        
-        {/* Mountain silhouette at bottom */}
-        <svg 
+
+        <svg
           className="absolute bottom-0 left-0 right-0 w-full h-24"
-          viewBox="0 0 1440 96" 
+          viewBox="0 0 1440 96"
           preserveAspectRatio="none"
         >
           <path
@@ -127,7 +121,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Methods */}
-      <section className="py-12 -mt-8 relative z-10 bg-[#0c4a6e]">
+      <section className="py-12 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-6">
             {contactMethods.map((method, index) => (
@@ -145,8 +139,8 @@ export default function ContactPage() {
                     <h3 className="text-lg font-semibold text-white mb-1">{method.title}</h3>
                     <p className="text-sm text-sky-400 mb-3">{method.description}</p>
                     <p className="text-lg font-medium text-amber-300 mb-4">{method.value}</p>
-                    <Button 
-                      variant="outline" 
+                    <Button
+                      variant="outline"
                       className="w-full border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
                       onClick={() => window.open(method.href, '_blank')}
                     >
@@ -161,7 +155,7 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form */}
-      <section id="consultation" className="py-20 bg-[#0c4a6e]">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             {/* Form */}
@@ -180,8 +174,8 @@ export default function ContactPage() {
                       <p className="text-sky-300 mb-6">
                         Thank you for reaching out. We&apos;ll get back to you within 24 hours.
                       </p>
-                      <Button 
-                        onClick={() => setSubmitted(false)} 
+                      <Button
+                        onClick={() => setSubmitted(false)}
                         variant="outline"
                         className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
                       >
@@ -192,9 +186,40 @@ export default function ContactPage() {
                     <>
                       <h2 className="text-2xl font-bold text-white mb-2">Send us a Message</h2>
                       <p className="text-sky-400 mb-6">
-                        Fill out the form below and we&apos;ll get back to you shortly.
+                        Fill out the form below and one of our team will be in touch.
                       </p>
                       <form onSubmit={handleSubmit} className="space-y-5">
+                        {/* User Type */}
+                        <div>
+                          <label className="block text-sm font-medium text-sky-300 mb-2">
+                            I am a
+                          </label>
+                          <div className="flex gap-4">
+                            <label className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="radio"
+                                name="userType"
+                                value="gp"
+                                checked={formState.userType === "gp"}
+                                onChange={(e) => setFormState({ ...formState, userType: e.target.value })}
+                                className="accent-teal-500"
+                              />
+                              <span className="text-sky-200 text-sm">GP</span>
+                            </label>
+                            <label className="flex items-center gap-2 cursor-pointer">
+                              <input
+                                type="radio"
+                                name="userType"
+                                value="practice"
+                                checked={formState.userType === "practice"}
+                                onChange={(e) => setFormState({ ...formState, userType: e.target.value })}
+                                className="accent-amber-500"
+                              />
+                              <span className="text-sky-200 text-sm">Practice / Employer</span>
+                            </label>
+                          </div>
+                        </div>
+
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-sky-300 mb-1">
@@ -227,7 +252,19 @@ export default function ContactPage() {
                         <div className="grid sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-sm font-medium text-sky-300 mb-1">
-                              Current Country
+                              Phone Number
+                            </label>
+                            <input
+                              type="tel"
+                              value={formState.phone}
+                              onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
+                              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder:text-sky-500"
+                              placeholder="+44 7700 000000"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-sky-300 mb-1">
+                              Country (for GPs)
                             </label>
                             <select
                               value={formState.country}
@@ -238,49 +275,27 @@ export default function ContactPage() {
                               <option value="uk">United Kingdom</option>
                               <option value="ireland">Ireland</option>
                               <option value="south-africa">South Africa</option>
-                              <option value="india">India</option>
-                              <option value="canada">Canada</option>
-                              <option value="singapore">Singapore</option>
                               <option value="other">Other</option>
-                            </select>
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-sky-300 mb-1">
-                              Stage in Journey
-                            </label>
-                            <select
-                              value={formState.stage}
-                              onChange={(e) => setFormState({ ...formState, stage: e.target.value })}
-                              className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white [&>option]:text-gray-900"
-                            >
-                              <option value="">Select stage</option>
-                              <option value="researching">Just researching</option>
-                              <option value="amc">Preparing for AMC exams</option>
-                              <option value="ahpra">AHPRA application in progress</option>
-                              <option value="job">Looking for a job</option>
-                              <option value="visa">Visa application stage</option>
-                              <option value="moving">Ready to move</option>
-                              <option value="arrived">Already in Australia</option>
                             </select>
                           </div>
                         </div>
 
                         <div>
                           <label className="block text-sm font-medium text-sky-300 mb-1">
-                            How can we help?
+                            Message
                           </label>
                           <textarea
                             rows={5}
                             value={formState.message}
                             onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                             className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder:text-sky-500 resize-none"
-                            placeholder="Tell us about your situation and what help you need..."
+                            placeholder="Tell us about your situation and what you need..."
                           />
                         </div>
 
-                        <Button 
-                          type="submit" 
-                          size="lg" 
+                        <Button
+                          type="submit"
+                          size="lg"
                           className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
                         >
                           <Send className="w-4 h-4 mr-2" />
@@ -301,16 +316,14 @@ export default function ContactPage() {
             >
               <div>
                 <h2 className="text-2xl font-bold text-white mb-4">
-                  Why Get in Touch?
+                  What Happens Next?
                 </h2>
                 <ul className="space-y-4">
                   {[
-                    "Personalized pathway assessment based on your qualifications",
-                    "Guidance on complex registration scenarios",
-                    "Connections to verified migration agents and recruiters",
-                    "Information about current job opportunities",
-                    "Help with document preparation and verification",
-                    "Ongoing support throughout your journey",
+                    "We review your enquiry within 24 hours",
+                    "A member of our team calls to understand your situation",
+                    "We assess your profile and match you to relevant practices",
+                    "We guide you through every step from there",
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <CheckCircle className="w-5 h-5 text-amber-400 mt-0.5 shrink-0" />
@@ -320,20 +333,23 @@ export default function ContactPage() {
                 </ul>
               </div>
 
-              <div className="bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] rounded-2xl p-8 text-white">
-                <Facebook className="w-10 h-10 mb-4 text-amber-300" />
-                <h3 className="text-xl font-bold mb-2">Join Our Community</h3>
-                <p className="text-orange-100 mb-6">
-                  Connect with our Facebook community of 6,000+ international GPs. 
-                  Get real-time advice from those who&apos;ve made the move.
+              <div className="bg-gradient-to-br from-teal-700 to-[#075985] rounded-2xl p-8 text-white border border-white/10">
+                <h3 className="text-xl font-bold mb-2">For UK GPs</h3>
+                <p className="text-teal-100 mb-4">
+                  Registering with us is free. We earn our fee from the practices we place you with — so our incentive is to find you the right role, not just any role.
                 </p>
-                <Button 
-                  className="bg-white text-orange-600 hover:bg-gray-100"
-                  onClick={() => window.open('https://www.facebook.com/groups/810474272306522', '_blank')}
-                >
-                  Join Facebook Group
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
+                <ul className="space-y-2">
+                  {[
+                    "No cost to you as a GP",
+                    "No obligation to accept any placement",
+                    "Confidential — your profile is only shared with your consent",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center gap-2 text-sm text-teal-200">
+                      <CheckCircle className="w-4 h-4 text-teal-300 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -341,53 +357,18 @@ export default function ContactPage() {
                   <Clock className="w-6 h-6 text-amber-400 mb-2" />
                   <p className="text-sm text-sky-300">
                     <strong className="text-white">Response Time:</strong><br />
-                    Usually within 24 hours
+                    Within 24 hours
                   </p>
                 </div>
                 <div className="p-4 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl">
                   <MapPin className="w-6 h-6 text-amber-400 mb-2" />
                   <p className="text-sm text-sky-300">
-                    <strong className="text-white">Location:</strong><br />
+                    <strong className="text-white">Base:</strong><br />
                     Melbourne, Australia
                   </p>
                 </div>
               </div>
             </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
-            Looking for Quick Answers?
-          </h2>
-          <p className="text-sky-300 mb-8">
-            Check our comprehensive FAQ sections on registration, visas, and jobs.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button 
-              variant="outline" 
-              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
-              onClick={() => window.location.href='/registration/'}
-            >
-              Registration FAQs
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
-              onClick={() => window.location.href='/visas/'}
-            >
-              Visa FAQs
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
-              onClick={() => window.location.href='/jobs/'}
-            >
-              Jobs FAQs
-            </Button>
           </div>
         </div>
       </section>
