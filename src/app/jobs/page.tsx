@@ -5,7 +5,7 @@ import { motion } from "framer-motion"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { 
   MapPin, 
   Briefcase, 
@@ -16,10 +16,9 @@ import {
   Star,
   ChevronRight,
   Building2,
-  CheckCircle,
-  Heart
+  Heart,
+  ArrowRight
 } from "lucide-react"
-import Link from "next/link"
 
 const jobListings = [
   {
@@ -32,7 +31,7 @@ const jobListings = [
     billing: "70% - 75%",
     posted: "2 days ago",
     featured: true,
-    highlights: ["DPA & DWS", "High patient demand", "Modern facility", " visa sponsorship available"],
+    highlights: ["DPA & DWS", "High patient demand", "Modern facility", "Visa sponsorship"],
     description: "Well-established practice in beautiful coastal location seeking a VR GP. High patient demand with mixed billing. Excellent earning potential.",
   },
   {
@@ -124,70 +123,103 @@ export default function JobsPage() {
   })
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               GP Jobs Hub
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Find Your Dream GP Position in Australia
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Find Your Dream{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                GP Position
+              </span>
+              {" "}in Australia
             </h1>
-            <p className="text-xl text-emerald-100">
+            <p className="text-xl text-sky-200 max-w-2xl">
               Browse verified GP jobs across Australia. Connect directly with clinics 
               and practices hiring international doctors now.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Search & Filters */}
-      <section className="py-8 bg-white border-b border-gray-200 sticky top-20 z-30">
+      <section className="py-8 bg-[#0c4a6e]/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-4">
             <div className="relative flex-grow">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-sky-400" />
               <input
                 type="text"
                 placeholder="Search jobs, locations, or practices..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-white placeholder:text-sky-400"
               />
             </div>
             <div className="flex flex-wrap gap-2">
               <select
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white [&>option]:text-gray-900"
               >
                 {locations.map(loc => <option key={loc} value={loc}>{loc}</option>)}
               </select>
               <select
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white [&>option]:text-gray-900"
               >
                 {types.map(type => <option key={type} value={type}>{type}</option>)}
               </select>
               <select
                 value={selectedBilling}
                 onChange={(e) => setSelectedBilling(e.target.value)}
-                className="px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
+                className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white [&>option]:text-gray-900"
               >
                 {billings.map(b => <option key={b} value={b}>{b}</option>)}
               </select>
@@ -197,13 +229,13 @@ export default function JobsPage() {
       </section>
 
       {/* Job Listings */}
-      <section className="py-12">
+      <section className="py-12 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-xl font-semibold text-gray-900">
+            <h2 className="text-xl font-semibold text-white">
               {filteredJobs.length} Jobs Found
             </h2>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-sky-400">
               <Filter className="w-4 h-4" />
               Sorted by: Featured
             </div>
@@ -217,56 +249,56 @@ export default function JobsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <Card className={`hover:shadow-lg transition-shadow ${job.featured ? 'border-amber-300 bg-amber-50/30' : ''}`}>
+                <Card className={`bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all ${job.featured ? 'border-amber-500/50 ring-1 ring-amber-500/30' : ''}`}>
                   <CardContent className="p-6">
                     <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                       {/* Main Content */}
                       <div className="flex-grow">
                         <div className="flex items-start justify-between mb-2">
                           <div>
-                            <div className="flex items-center gap-2 mb-1">
+                            <div className="flex items-center gap-2 mb-2">
                               {job.featured && (
-                                <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs font-medium flex items-center gap-1">
-                                  <Star className="w-3 h-3 fill-amber-700" />
+                                <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 rounded text-xs font-medium flex items-center gap-1">
+                                  <Star className="w-3 h-3 fill-amber-400" />
                                   Featured
                                 </span>
                               )}
-                              <span className="text-sm text-gray-500">{job.posted}</span>
+                              <span className="text-sm text-sky-400">{job.posted}</span>
                             </div>
-                            <h3 className="text-xl font-semibold text-gray-900 hover:text-teal-600 transition-colors">
+                            <h3 className="text-xl font-semibold text-white hover:text-amber-300 transition-colors">
                               {job.title}
                             </h3>
-                            <p className="text-gray-600">{job.practice}</p>
+                            <p className="text-sky-300">{job.practice}</p>
                           </div>
-                          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-                            <Heart className="w-5 h-5 text-gray-400 hover:text-red-500 transition-colors" />
+                          <button className="p-2 hover:bg-white/10 rounded-full transition-colors">
+                            <Heart className="w-5 h-5 text-sky-400 hover:text-amber-400 transition-colors" />
                           </button>
                         </div>
 
-                        <div className="flex flex-wrap gap-4 mb-4 text-sm text-gray-600">
+                        <div className="flex flex-wrap gap-4 mb-4 text-sm text-sky-300">
                           <span className="flex items-center gap-1">
-                            <MapPin className="w-4 h-4" />
+                            <MapPin className="w-4 h-4 text-amber-400" />
                             {job.location}
                           </span>
                           <span className="flex items-center gap-1">
-                            <Briefcase className="w-4 h-4" />
+                            <Briefcase className="w-4 h-4 text-amber-400" />
                             {job.type}
                           </span>
                           <span className="flex items-center gap-1">
-                            <DollarSign className="w-4 h-4" />
+                            <DollarSign className="w-4 h-4 text-amber-400" />
                             {job.salary}
                           </span>
                           <span className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
+                            <Clock className="w-4 h-4 text-amber-400" />
                             {job.billing}
                           </span>
                         </div>
 
-                        <p className="text-gray-600 text-sm mb-4">{job.description}</p>
+                        <p className="text-sky-300 text-sm mb-4">{job.description}</p>
 
                         <div className="flex flex-wrap gap-2">
                           {job.highlights.map((highlight, i) => (
-                            <span key={i} className="px-3 py-1 bg-teal-50 text-teal-700 rounded-full text-xs font-medium">
+                            <span key={i} className="px-3 py-1 bg-white/10 text-sky-200 rounded-full text-xs font-medium border border-white/10">
                               {highlight}
                             </span>
                           ))}
@@ -276,7 +308,7 @@ export default function JobsPage() {
                       {/* CTA */}
                       <div className="flex lg:flex-col gap-3 lg:min-w-[160px]">
                         <Button 
-                          className="flex-grow lg:w-full"
+                          className="flex-grow lg:w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
                           onClick={() => window.location.href=`/jobs/${job.id}/`}
                         >
                           View Details
@@ -284,7 +316,7 @@ export default function JobsPage() {
                         </Button>
                         <Button 
                           variant="outline" 
-                          className="flex-grow lg:w-full"
+                          className="flex-grow lg:w-full border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
                           onClick={() => window.location.href='/contact/'}
                         >
                           Apply Now
@@ -299,10 +331,13 @@ export default function JobsPage() {
 
           {filteredJobs.length === 0 && (
             <div className="text-center py-16">
-              <Building2 className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No jobs found</h3>
-              <p className="text-gray-600 mb-6">Try adjusting your search criteria or filters</p>
-              <Button onClick={() => {setSearchTerm(""); setSelectedLocation("All Locations"); setSelectedType("All Types"); setSelectedBilling("All Billing")}}>
+              <Building2 className="w-16 h-16 text-sky-600 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">No jobs found</h3>
+              <p className="text-sky-400 mb-6">Try adjusting your search criteria or filters</p>
+              <Button 
+                onClick={() => {setSearchTerm(""); setSelectedLocation("All Locations"); setSelectedType("All Types"); setSelectedBilling("All Billing")}}
+                className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
+              >
                 Clear Filters
               </Button>
             </div>
@@ -311,45 +346,61 @@ export default function JobsPage() {
       </section>
 
       {/* Post Job CTA */}
-      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-            Are You a Clinic Looking to Hire?
-          </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Post your GP vacancies to our network of 15,000+ international doctors. 
-            Find qualified candidates faster with our targeted recruitment platform.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg" 
-              onClick={() => window.location.href='/partnerships/'}
-            >
-              Post a Job
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="border-white text-white hover:bg-white/10 bg-transparent"
-              onClick={() => window.location.href='/partnerships/'}
-            >
-              Learn More
-            </Button>
-          </div>
-          <div className="mt-12 grid grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-amber-300">500+</div>
-              <div className="text-sm text-orange-200">Partner Clinics</div>
+      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+              Are You a Clinic Looking to Hire?
+            </h2>
+            <p className="text-xl text-orange-100 mb-8 max-w-2xl mx-auto">
+              Post your GP vacancies to our network of 15,000+ international doctors. 
+              Find qualified candidates faster with our targeted recruitment platform.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                size="lg" 
+                className="bg-white text-orange-600 hover:bg-gray-100"
+                onClick={() => window.location.href='/partnerships/'}
+              >
+                Post a Job
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white/10 bg-transparent"
+                onClick={() => window.location.href='/partnerships/'}
+              >
+                Learn More
+              </Button>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-amber-300">15K+</div>
-              <div className="text-sm text-orange-200">GPs in Network</div>
+            <div className="mt-12 grid grid-cols-3 gap-8">
+              <div className="text-center">
+                <div className="text-3xl font-bold text-amber-300">500+</div>
+                <div className="text-sm text-orange-200">Partner Clinics</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-amber-300">15K+</div>
+                <div className="text-sm text-orange-200">GPs in Network</div>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl font-bold text-amber-300">48hr</div>
+                <div className="text-sm text-orange-200">Avg. Time to Hire</div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-amber-300">48hr</div>
-              <div className="text-sm text-gray-400">Avg. Time to Hire</div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

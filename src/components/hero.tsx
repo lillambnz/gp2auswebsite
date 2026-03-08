@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "./ui/button"
-import { ArrowRight, Star } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 const trustBadges = [
   "15,000+ GPs Helped",
@@ -10,40 +10,6 @@ const trustBadges = [
   "98% Success Rate",
   "Trusted by RACGP",
 ]
-
-// Grey Kangaroo SVG - visible on orange background
-const Kangaroo = ({ direction = "right", size = 1 }: { direction?: "right" | "left"; size?: number }) => (
-  <svg 
-    viewBox="0 0 64 64" 
-    className="w-16 h-16 md:w-20 md:h-20"
-    style={{ 
-      transform: `${direction === "left" ? "scaleX(-1)" : ""} scale(${size})`,
-      transformOrigin: "center bottom"
-    }}
-  >
-    {/* Kangaroo body - grey with shadow */}
-    <ellipse cx="32" cy="36" rx="14" ry="16" fill="#4b5563" />
-    {/* Head */}
-    <circle cx="44" cy="20" r="10" fill="#4b5563" />
-    {/* Ears */}
-    <ellipse cx="40" cy="8" rx="3" ry="8" fill="#4b5563" />
-    <ellipse cx="50" cy="8" rx="3" ry="8" fill="#4b5563" />
-    {/* Snout */}
-    <ellipse cx="52" cy="22" rx="5" ry="4" fill="#374151" />
-    {/* Tail */}
-    <path d="M16 38 Q4 46 2 32" stroke="#4b5563" strokeWidth="6" fill="none" strokeLinecap="round" />
-    {/* Arms */}
-    <ellipse cx="28" cy="30" rx="4" ry="8" fill="#374151" />
-    {/* Legs */}
-    <path d="M22 50 Q16 58 12 52" stroke="#4b5563" strokeWidth="6" fill="none" strokeLinecap="round" />
-    <path d="M36 50 Q44 58 48 52" stroke="#4b5563" strokeWidth="6" fill="none" strokeLinecap="round" />
-    {/* Eye */}
-    <circle cx="46" cy="18" r="2" fill="white" />
-    <circle cx="47" cy="18" r="1" fill="black" />
-    {/* Highlight for depth */}
-    <ellipse cx="28" cy="32" rx="6" ry="8" fill="#6b7280" opacity="0.5" />
-  </svg>
-)
 
 export function Hero() {
   return (
@@ -124,116 +90,11 @@ export function Hero() {
             />
           ))}
         </div>
-
-        {/* Kangaroo Family - Hopping together on top of mountains! */}
-        <div className="absolute bottom-32 left-0 right-0 h-48 pointer-events-none overflow-hidden">
-          
-          {/* Container that moves the whole family together */}
-          <motion.div
-            className="absolute flex items-end gap-2"
-            style={{ bottom: "60px" }}
-            initial={{ x: "-30%" }}
-            animate={{ x: "130vw" }}
-            transition={{ 
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-              repeatDelay: 5
-            }}
-          >
-            {/* Papa Kangaroo - Leading */}
-            <motion.div
-              animate={{ 
-                y: [0, -40, 0, -35, 0, -38, 0],
-                rotate: [0, -5, 0, 4, 0, -3, 0]
-              }}
-              transition={{ 
-                duration: 2.5,
-                repeat: Infinity,
-                ease: [0.43, 0.13, 0.23, 0.96],
-                times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1]
-              }}
-            >
-              <div className="opacity-90">
-                <Kangaroo direction="right" size={1.3} />
-              </div>
-            </motion.div>
-
-            {/* Mama Kangaroo - Close behind */}
-            <motion.div
-              animate={{ 
-                y: [0, -38, 0, -32, 0, -35, 0],
-                rotate: [0, -4, 0, 5, 0, -4, 0]
-              }}
-              transition={{ 
-                duration: 2.5,
-                repeat: Infinity,
-                ease: [0.43, 0.13, 0.23, 0.96],
-                delay: 0.3,
-                times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1]
-              }}
-            >
-              <div className="opacity-85">
-                <Kangaroo direction="right" size={1.2} />
-              </div>
-            </motion.div>
-
-            {/* Joey 1 - Following closely */}
-            <motion.div
-              animate={{ 
-                y: [0, -30, 0, -28, 0, -32, 0],
-                rotate: [0, -6, 0, 4, 0, -5, 0]
-              }}
-              transition={{ 
-                duration: 2.5,
-                repeat: Infinity,
-                ease: [0.43, 0.13, 0.23, 0.96],
-                delay: 0.6,
-                times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1]
-              }}
-            >
-              <div className="opacity-80">
-                <Kangaroo direction="right" size={0.85} />
-              </div>
-            </motion.div>
-
-            {/* Joey 2 - Trailing but still close */}
-            <motion.div
-              animate={{ 
-                y: [0, -28, 0, -25, 0, -30, 0],
-                rotate: [0, -5, 0, 6, 0, -4, 0]
-              }}
-              transition={{ 
-                duration: 2.5,
-                repeat: Infinity,
-                ease: [0.43, 0.13, 0.23, 0.96],
-                delay: 0.9,
-                times: [0, 0.15, 0.3, 0.5, 0.65, 0.8, 1]
-              }}
-            >
-              <div className="opacity-75">
-                <Kangaroo direction="right" size={0.7} />
-              </div>
-            </motion.div>
-          </motion.div>
-
-        </div>
       </div>
 
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 md:pt-40 pb-20">
         <div className="text-center max-w-4xl mx-auto">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-amber-300 text-sm font-medium mb-8 border border-white/10"
-          >
-            <Star className="w-4 h-4 fill-amber-400" />
-            The #1 Resource for International GPs Moving to Australia
-          </motion.div>
-
           {/* Main Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 30 }}

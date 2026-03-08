@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { MapPin, Mail, Phone, Linkedin, Twitter, Facebook, Instagram } from "lucide-react"
 
 const footerLinks = {
@@ -41,14 +40,11 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <a href="/" className="flex items-center mb-6">
-              <Image
-                src="/gp2auslogo_transparent.png"
-                alt="GP2Aus"
-                width={180}
-                height={60}
-                className="h-14 w-auto object-contain"
-              />
+            <a href="/" className="flex items-center gap-2 mb-6">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <span className="text-white font-bold text-lg">GP</span>
+              </div>
+              <span className="text-xl font-bold text-white">GP2Aus</span>
             </a>
             <p className="text-sky-400 mb-6 max-w-sm">
               The complete guide for international GPs moving to Australia. 

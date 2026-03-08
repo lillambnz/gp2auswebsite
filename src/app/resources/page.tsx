@@ -15,9 +15,10 @@ import {
   Calculator,
   GraduationCap,
   Users,
-  ChevronRight
+  ChevronRight,
+  Star,
+  ArrowRight
 } from "lucide-react"
-import Link from "next/link"
 
 const resourceCategories = [
   {
@@ -25,7 +26,7 @@ const resourceCategories = [
     title: "GP Starter Pack",
     icon: Stethoscope,
     description: "Essential resources for your first day as a GP in Australia",
-    color: "from-teal-500 to-emerald-500",
+    color: "from-amber-500 to-orange-500",
     items: [
       { name: "Australian MBS Quick Reference", type: "PDF", size: "2.4 MB" },
       { name: "Bulk Billing vs Private Billing Guide", type: "PDF", size: "1.1 MB" },
@@ -39,7 +40,7 @@ const resourceCategories = [
     title: "Clinical Guidelines",
     icon: BookOpen,
     description: "Australian clinical guidelines and protocols",
-    color: "from-blue-500 to-cyan-500",
+    color: "from-sky-500 to-blue-500",
     items: [
       { name: "RACGP Clinical Guidelines Summary", type: "PDF", size: "5.6 MB" },
       { name: "Immunisation Handbook Summary", type: "PDF", size: "2.8 MB" },
@@ -53,7 +54,7 @@ const resourceCategories = [
     title: "Medical Calculators",
     icon: Calculator,
     description: "Essential calculators for Australian general practice",
-    color: "from-amber-500 to-orange-500",
+    color: "from-emerald-500 to-teal-500",
     items: [
       { name: "CV Risk Calculator (Aus-modified FRAX)", type: "Tool" },
       { name: "Pregnancy Dating Calculator", type: "Tool" },
@@ -103,39 +104,71 @@ const quickLinks = [
 
 export default function ResourcesPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               Resources & Guidelines
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Your GP Practice Toolkit
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Your GP Practice{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                Toolkit
+              </span>
             </h1>
-            <p className="text-xl text-indigo-100">
+            <p className="text-xl text-sky-200">
               Essential resources, clinical guidelines, and tools to help you succeed 
               as a GP in Australia. Everything you need for confident practice.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Resource Categories */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             {resourceCategories.map((category, index) => (
@@ -145,39 +178,39 @@ export default function ResourcesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow">
+                <Card className="h-full bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all">
                   <CardHeader>
                     <div className={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-xl flex items-center justify-center mb-4`}>
                       <category.icon className="w-7 h-7 text-white" />
                     </div>
-                    <CardTitle className="text-xl">{category.title}</CardTitle>
-                    <CardDescription>{category.description}</CardDescription>
+                    <CardTitle className="text-xl text-white">{category.title}</CardTitle>
+                    <CardDescription className="text-sky-400">{category.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3">
                       {category.items.map((item, i) => (
-                        <li key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors group cursor-pointer">
+                        <li key={i} className="flex items-center justify-between p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors group cursor-pointer border border-white/10">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center shadow-sm">
-                              {item.type === "PDF" && <FileText className="w-4 h-4 text-red-500" />}
-                              {item.type === "DOCX" && <FileText className="w-4 h-4 text-blue-500" />}
-                              {item.type === "Video" && <Video className="w-4 h-4 text-purple-500" />}
-                              {item.type === "Tool" && <Calculator className="w-4 h-4 text-emerald-500" />}
-                              {item.type === "Course" && <GraduationCap className="w-4 h-4 text-amber-500" />}
-                              {item.type === "Link" && <ExternalLink className="w-4 h-4 text-indigo-500" />}
+                            <div className="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                              {item.type === "PDF" && <FileText className="w-4 h-4 text-amber-400" />}
+                              {item.type === "DOCX" && <FileText className="w-4 h-4 text-sky-400" />}
+                              {item.type === "Video" && <Video className="w-4 h-4 text-purple-400" />}
+                              {item.type === "Tool" && <Calculator className="w-4 h-4 text-emerald-400" />}
+                              {item.type === "Course" && <GraduationCap className="w-4 h-4 text-amber-400" />}
+                              {item.type === "Link" && <ExternalLink className="w-4 h-4 text-sky-400" />}
                             </div>
-                            <span className="font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{item.name}</span>
+                            <span className="font-medium text-sky-200 group-hover:text-amber-300 transition-colors">{item.name}</span>
                           </div>
                           <div className="flex items-center gap-2">
-                            {('size' in item) && (item as {size?: string}).size && <span className="text-xs text-gray-400">{(item as {size?: string}).size}</span>}
-                            {('duration' in item) && (item as {duration?: string}).duration && <span className="text-xs text-gray-400">{(item as {duration?: string}).duration}</span>}
-                            <Download className="w-4 h-4 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+                            {('size' in item) && (item as {size?: string}).size && <span className="text-xs text-sky-500">{(item as {size?: string}).size}</span>}
+                            {('duration' in item) && (item as {duration?: string}).duration && <span className="text-xs text-sky-500">{(item as {duration?: string}).duration}</span>}
+                            <Download className="w-4 h-4 text-sky-500 group-hover:text-amber-300 transition-colors" />
                           </div>
                         </li>
                       ))}
                     </ul>
                     <Button 
-                      className="w-full mt-6" 
+                      className="w-full mt-6 border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent" 
                       variant="outline"
                       onClick={() => alert('More resources coming soon!')}
                     >
@@ -193,11 +226,11 @@ export default function ResourcesPage() {
       </section>
 
       {/* Quick Links */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#082f4a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Essential Links</h2>
-            <p className="text-gray-600">Quick access to important Australian medical organizations and resources</p>
+            <h2 className="text-3xl font-bold text-white mb-4">Essential Links</h2>
+            <p className="text-sky-300">Quick access to important Australian medical organizations and resources</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -210,14 +243,14 @@ export default function ResourcesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
-                className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-indigo-50 hover:border-indigo-200 border border-transparent transition-all group"
+                className="flex items-center gap-4 p-4 bg-white/5 rounded-xl hover:bg-white/10 border border-white/10 transition-all group"
               >
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-                  <ExternalLink className="w-5 h-5 text-indigo-600" />
+                <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
+                  <ExternalLink className="w-5 h-5 text-amber-400" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">{link.name}</h3>
-                  <p className="text-sm text-gray-500">{link.desc}</p>
+                  <h3 className="font-semibold text-white group-hover:text-amber-300 transition-colors">{link.name}</h3>
+                  <p className="text-sm text-sky-400">{link.desc}</p>
                 </div>
               </motion.a>
             ))}
@@ -226,17 +259,30 @@ export default function ResourcesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-600">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             Can&apos;t Find What You&apos;re Looking For?
           </h2>
-          <p className="text-xl text-indigo-100 mb-8">
+          <p className="text-xl text-orange-100 mb-8">
             We&apos;re constantly adding new resources. Let us know what would help you 
             most in your GP journey.
           </p>
-          <Button size="lg" className="bg-white text-orange-700 hover:bg-gray-100" onClick={() => window.location.href='/contact/'}>
+          <Button 
+            size="lg" 
+            className="bg-white text-orange-600 hover:bg-gray-100"
+            onClick={() => window.location.href='/contact/'}
+          >
             Request a Resource
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </section>

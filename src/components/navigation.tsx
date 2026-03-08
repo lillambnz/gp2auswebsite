@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "./ui/button"
+import Image from "next/image"
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -48,13 +49,15 @@ export function Navigation() {
         <nav className="max-w-7xl mx-auto bg-[#0c4a6e]/80 backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg shadow-black/20">
           <div className="flex items-center justify-between px-6 py-3">
             {/* Logo */}
-            <a href="/" className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg shadow-amber-500/30">
-                <span className="text-white font-bold text-lg">GP</span>
-              </div>
-              <span className="text-xl font-bold text-white">
-                GP2Aus
-              </span>
+            <a href="/" className="flex items-center">
+              <Image
+                src="/Gemini_Generated_Image_13cgo313cgo313cg_transparent.png"
+                alt="GP2Aus"
+                width={160}
+                height={60}
+                className="h-14 w-auto object-contain"
+                priority
+              />
             </a>
 
             {/* Desktop Navigation */}

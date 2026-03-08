@@ -21,9 +21,9 @@ import {
   CheckCircle,
   ArrowRight,
   Stethoscope,
-  Globe
+  Globe,
+  Star
 } from "lucide-react"
-import Link from "next/link"
 
 const pathways = [
   {
@@ -39,7 +39,7 @@ const pathways = [
       "AMC clinical examination or workplace-based assessment",
     ],
     timeline: "12-24 months",
-    color: "from-teal-500 to-emerald-500",
+    color: "from-amber-500 to-orange-500",
   },
   {
     id: "specialist",
@@ -50,11 +50,11 @@ const pathways = [
       "Specialist qualification in General Practice/Family Medicine",
       "Currently practicing as a specialist",
       "English language proficiency",
-      " comparability assessment by RACGP/ACRRM",
+      "Comparability assessment by RACGP/ACRRM",
       "May require additional training or examinations",
     ],
     timeline: "6-18 months",
-    color: "from-amber-500 to-orange-500",
+    color: "from-sky-500 to-blue-500",
   },
   {
     id: "competent",
@@ -69,7 +69,7 @@ const pathways = [
       "Apply directly to AHPRA for registration",
     ],
     timeline: "3-12 months",
-    color: "from-blue-500 to-cyan-500",
+    color: "from-emerald-500 to-teal-500",
   },
 ]
 
@@ -137,45 +137,77 @@ const faqs = [
 
 export default function RegistrationPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               Registration Guide
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              AHPRA Registration for International GPs
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              AHPRA Registration for{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                International GPs
+              </span>
             </h1>
-            <p className="text-xl text-teal-100">
+            <p className="text-xl text-sky-200">
               Your complete guide to navigating the Australian Health Practitioner Regulation Agency 
               registration process and becoming a practicing GP in Australia.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Pathways */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Choose Your Registration Pathway
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               The pathway you take depends on your qualifications and where you trained. 
               Select the option that applies to you.
             </p>
@@ -189,23 +221,23 @@ export default function RegistrationPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow">
+                <Card className="h-full bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all">
                   <CardHeader>
                     <div className={`w-14 h-14 bg-gradient-to-br ${pathway.color} rounded-xl flex items-center justify-center mb-4`}>
                       <pathway.icon className="w-7 h-7 text-white" />
                     </div>
-                    <CardTitle className="text-xl">{pathway.title}</CardTitle>
-                    <CardDescription>{pathway.description}</CardDescription>
+                    <CardTitle className="text-xl text-white">{pathway.title}</CardTitle>
+                    <CardDescription className="text-sky-400">{pathway.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
-                      <Clock className="w-4 h-4" />
+                    <div className="flex items-center gap-2 text-sm text-sky-400 mb-4">
+                      <Clock className="w-4 h-4 text-amber-400" />
                       <span>Timeline: {pathway.timeline}</span>
                     </div>
                     <ul className="space-y-2">
                       {pathway.requirements.map((req, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                          <CheckCircle className="w-4 h-4 text-teal-500 mt-0.5 shrink-0" />
+                        <li key={i} className="flex items-start gap-2 text-sm text-sky-300">
+                          <CheckCircle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
                           {req}
                         </li>
                       ))}
@@ -219,13 +251,13 @@ export default function RegistrationPage() {
       </section>
 
       {/* Steps */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#082f4a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               The Registration Process
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               Follow these steps to complete your AHPRA registration and become a practicing GP in Australia.
             </p>
           </div>
@@ -239,15 +271,15 @@ export default function RegistrationPage() {
                 transition={{ delay: index * 0.1 }}
                 className="relative"
               >
-                <div className="bg-gray-50 rounded-2xl p-6 h-full border border-gray-100 hover:border-teal-200 hover:shadow-lg transition-all">
+                <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 h-full border border-white/10 hover:border-amber-500/50 hover:bg-white/10 transition-all">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-10 h-10 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold">
+                    <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-full flex items-center justify-center font-bold">
                       {step.number}
                     </div>
-                    <step.icon className="w-6 h-6 text-teal-600" />
+                    <step.icon className="w-6 h-6 text-amber-400" />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-sm text-gray-600">{step.description}</p>
+                  <h3 className="text-lg font-semibold text-white mb-2">{step.title}</h3>
+                  <p className="text-sm text-sky-300">{step.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -256,14 +288,22 @@ export default function RegistrationPage() {
       </section>
 
       {/* Cost Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
                 Understanding the Costs
               </h2>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-orange-100 mb-6">
                 The registration process involves several fees. Use our cost calculator to estimate 
                 your total investment for relocating to Australia as a GP.
               </p>
@@ -275,19 +315,22 @@ export default function RegistrationPage() {
                   "Document Verification: ~$300-500 AUD",
                   "Visa Application: ~$4,000+ AUD",
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-gray-700">
-                    <Globe className="w-5 h-5 text-amber-500" />
+                  <li key={i} className="flex items-center gap-3 text-orange-100">
+                    <Globe className="w-5 h-5 text-amber-300" />
                     {item}
                   </li>
                 ))}
               </ul>
-              <Button onClick={() => window.location.href='/calculator/'}>
+              <Button 
+                onClick={() => window.location.href='/calculator/'}
+                className="bg-white text-orange-600 hover:bg-gray-100"
+              >
                 Calculate Your Costs
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
-            <div className="bg-white rounded-2xl p-8 shadow-xl">
-              <h3 className="text-xl font-semibold mb-4">Key Organizations</h3>
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+              <h3 className="text-xl font-semibold text-white mb-4">Key Organizations</h3>
               <div className="space-y-4">
                 {[
                   { name: "AHPRA", desc: "Australian Health Practitioner Regulation Agency - handles all medical registration" },
@@ -295,9 +338,9 @@ export default function RegistrationPage() {
                   { name: "RACGP", desc: "Royal Australian College of General Practitioners - fellowship training" },
                   { name: "ACRRM", desc: "Australian College of Rural and Remote Medicine - rural pathway" },
                 ].map((org) => (
-                  <div key={org.name} className="p-4 bg-gray-50 rounded-xl">
-                    <div className="font-semibold text-teal-700">{org.name}</div>
-                    <div className="text-sm text-gray-600">{org.desc}</div>
+                  <div key={org.name} className="p-4 bg-white/10 rounded-xl border border-white/10">
+                    <div className="font-semibold text-amber-300">{org.name}</div>
+                    <div className="text-sm text-sky-200">{org.desc}</div>
                   </div>
                 ))}
               </div>
@@ -307,24 +350,24 @@ export default function RegistrationPage() {
       </section>
 
       {/* FAQs */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               Common questions about the registration process
             </p>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-xl border border-gray-200 px-6">
-                <AccordionTrigger className="text-left font-medium hover:no-underline py-4">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white/5 backdrop-blur-sm border-white/10 rounded-xl px-6">
+                <AccordionTrigger className="text-left font-medium hover:no-underline py-4 text-white">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 pb-4">
+                <AccordionContent className="text-sky-300 pb-4">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -334,20 +377,30 @@ export default function RegistrationPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-teal-600">
+      <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             Ready to Start Your Registration Journey?
           </h2>
-          <p className="text-xl text-teal-100 mb-8">
+          <p className="text-xl text-sky-300 mb-8">
             Use our interactive tools to check your eligibility, calculate costs, 
             and track your progress through the registration process.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-700 hover:bg-gray-100" onClick={() => window.location.href='/checklist/'}>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
+              onClick={() => window.location.href='/checklist/'}
+            >
               Get Documents Checklist
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 bg-transparent" onClick={() => window.location.href='/calculator/'}>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
+              onClick={() => window.location.href='/calculator/'}
+            >
               Calculate Costs
             </Button>
           </div>

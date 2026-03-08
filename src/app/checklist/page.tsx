@@ -16,7 +16,8 @@ import {
   Download,
   RotateCcw,
   CheckCircle,
-  Circle
+  Circle,
+  Star
 } from "lucide-react"
 
 const checklistData = [
@@ -130,58 +131,90 @@ export default function ChecklistPage() {
   const overall = getOverallProgress()
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               Documents Checklist
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Track Your Progress
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Track Your{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                Progress
+              </span>
             </h1>
-            <p className="text-xl text-emerald-100">
+            <p className="text-xl text-sky-200">
               Interactive checklist to ensure you have all documents ready for your 
               AHPRA registration, visa application, and move to Australia.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Progress Bar */}
-      <section className="py-6 bg-white border-b border-gray-200 sticky top-20 z-30">
+      <section className="py-6 bg-[#0c4a6e]/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">Overall Progress</span>
-            <span className="text-sm font-medium text-teal-600">{overall.percentage}% Complete</span>
+            <span className="text-sm font-medium text-white">Overall Progress</span>
+            <span className="text-sm font-medium text-amber-400">{overall.percentage}% Complete</span>
           </div>
-          <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-3 bg-white/10 rounded-full overflow-hidden">
             <div 
-              className="h-full bg-gradient-to-r from-teal-500 to-emerald-500 transition-all duration-500"
+              className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-500"
               style={{ width: `${overall.percentage}%` }}
             />
           </div>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-sm text-sky-400 mt-2">
             {overall.checked} of {overall.total} items completed
           </p>
         </div>
       </section>
 
       {/* Checklist */}
-      <section className="py-12">
+      <section className="py-12 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2 space-y-6">
@@ -194,27 +227,27 @@ export default function ChecklistPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: catIndex * 0.1 }}
                   >
-                    <Card>
+                    <Card className="bg-white/5 backdrop-blur-sm border-white/10">
                       <CardHeader className="pb-4">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-                              <category.icon className="w-5 h-5 text-teal-600" />
+                            <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center border border-white/10">
+                              <category.icon className="w-5 h-5 text-amber-400" />
                             </div>
                             <div>
-                              <CardTitle className="text-lg">{category.title}</CardTitle>
-                              <p className="text-sm text-gray-500">
+                              <CardTitle className="text-lg text-white">{category.title}</CardTitle>
+                              <p className="text-sm text-sky-400">
                                 {progress.checked} of {progress.total} completed
                               </p>
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-2xl font-bold text-teal-600">{progress.percentage}%</span>
+                            <span className="text-2xl font-bold text-amber-400">{progress.percentage}%</span>
                           </div>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden mt-3">
+                        <div className="h-2 bg-white/10 rounded-full overflow-hidden mt-3">
                           <div 
-                            className="h-full bg-teal-500 transition-all duration-300"
+                            className="h-full bg-gradient-to-r from-amber-500 to-orange-500 transition-all duration-300"
                             style={{ width: `${progress.percentage}%` }}
                           />
                         </div>
@@ -226,8 +259,8 @@ export default function ChecklistPage() {
                               key={item.id}
                               className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-all ${
                                 checkedItems[item.id] 
-                                  ? 'bg-teal-50 border border-teal-200' 
-                                  : 'hover:bg-gray-50 border border-transparent'
+                                  ? 'bg-amber-500/10 border border-amber-500/30' 
+                                  : 'hover:bg-white/5 border border-transparent'
                               }`}
                             >
                               <button
@@ -235,16 +268,16 @@ export default function ChecklistPage() {
                                 className="flex-shrink-0"
                               >
                                 {checkedItems[item.id] ? (
-                                  <CheckCircle className="w-6 h-6 text-teal-600" />
+                                  <CheckCircle className="w-6 h-6 text-amber-400" />
                                 ) : (
-                                  <Circle className="w-6 h-6 text-gray-300" />
+                                  <Circle className="w-6 h-6 text-sky-600" />
                                 )}
                               </button>
-                              <span className={`flex-grow ${checkedItems[item.id] ? 'text-gray-700 line-through' : 'text-gray-700'}`}>
+                              <span className={`flex-grow ${checkedItems[item.id] ? 'text-sky-200 line-through' : 'text-sky-200'}`}>
                                 {item.text}
                               </span>
                               {item.required && (
-                                <span className="px-2 py-0.5 bg-red-100 text-red-700 rounded text-xs font-medium">
+                                <span className="px-2 py-0.5 bg-red-500/20 text-red-300 rounded text-xs font-medium border border-red-500/30">
                                   Required
                                 </span>
                               )}
@@ -261,7 +294,7 @@ export default function ChecklistPage() {
             {/* Sidebar */}
             <div className="lg:col-span-1">
               <div className="sticky top-48 space-y-6">
-                <Card className="bg-gradient-to-br from-teal-600 to-emerald-700 text-white">
+                <Card className="bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] text-white border-0">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <CheckSquare className="w-5 h-5" />
@@ -273,13 +306,13 @@ export default function ChecklistPage() {
                       <div className="text-5xl font-bold text-white mb-2">
                         {overall.percentage}%
                       </div>
-                      <p className="text-teal-100">
+                      <p className="text-orange-100">
                         {overall.checked} of {overall.total} items checked
                       </p>
                     </div>
                     <div className="pt-4 border-t border-white/20 space-y-3">
                       <Button 
-                        className="w-full bg-white text-teal-700 hover:bg-gray-100"
+                        className="w-full bg-white text-orange-600 hover:bg-gray-100"
                         onClick={() => alert('PDF export coming soon!')}
                       >
                         <Download className="w-4 h-4 mr-2" />
@@ -297,11 +330,11 @@ export default function ChecklistPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10">
                   <CardHeader>
-                    <CardTitle className="text-base">Tips</CardTitle>
+                    <CardTitle className="text-base text-white">Tips</CardTitle>
                   </CardHeader>
-                  <CardContent className="text-sm text-gray-600 space-y-3">
+                  <CardContent className="text-sm text-sky-300 space-y-3">
                     <p>• Start gathering documents early — some take months</p>
                     <p>• Get certified copies of all original documents</p>
                     <p>• Keep digital backups in cloud storage</p>

@@ -1,21 +1,21 @@
 "use client"
 
 import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]",
   {
     variants: {
       variant: {
-        default: "bg-teal-600 text-white hover:bg-teal-700 shadow-lg shadow-teal-600/20",
-        secondary: "bg-amber-500 text-white hover:bg-amber-600 shadow-lg shadow-amber-500/20",
-        outline: "border-2 border-teal-600 text-teal-600 hover:bg-teal-50",
-        ghost: "hover:bg-teal-50 text-teal-700",
-        link: "text-teal-600 underline-offset-4 hover:underline",
-        white: "bg-white text-teal-700 hover:bg-gray-50 shadow-lg",
+        default: "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-400 hover:to-orange-400 shadow-lg shadow-amber-500/25",
+        secondary: "bg-gradient-to-r from-sky-600 to-blue-600 text-white hover:from-sky-500 hover:to-blue-500 shadow-lg shadow-sky-500/25",
+        outline: "border-2 border-amber-500/50 text-amber-400 hover:bg-amber-500/10 hover:border-amber-400",
+        ghost: "text-sky-300 hover:text-amber-400 hover:bg-white/5",
+        link: "text-amber-400 underline-offset-4 hover:underline",
+        ocean: "bg-gradient-to-r from-sky-700 to-blue-700 text-white hover:from-sky-600 hover:to-blue-600",
+        earth: "bg-gradient-to-r from-terracotta-600 to-orange-700 text-white hover:from-terracotta-500 hover:to-orange-600",
       },
       size: {
         default: "h-11 px-6 py-2",
@@ -33,15 +33,12 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-}
+    VariantProps<typeof buttonVariants> {}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  ({ className, variant, size, ...props }, ref) => {
     return (
-      <Comp
+      <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}

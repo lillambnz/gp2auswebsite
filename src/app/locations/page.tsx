@@ -15,11 +15,10 @@ import {
   Thermometer,
   Briefcase,
   Search,
-  Filter,
   Heart,
-  ArrowRight
+  ArrowRight,
+  Star
 } from "lucide-react"
-import Link from "next/link"
 
 const locations = [
   {
@@ -223,49 +222,81 @@ export default function LocationsPage() {
   })
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-purple-600 via-indigo-600 to-purple-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               Location Explorer
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Find Your Perfect Australian Location
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Find Your Perfect{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                Australian Location
+              </span>
             </h1>
-            <p className="text-xl text-purple-100">
+            <p className="text-xl text-sky-200">
               Compare cities and regions across Australia. Explore climate, cost of living, 
               GP salaries, and lifestyle factors to find your ideal destination.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Filters */}
-      <section className="py-6 bg-white border-b border-gray-200 sticky top-20 z-30">
+      <section className="py-6 bg-[#0c4a6e]/95 backdrop-blur-xl border-b border-white/10 sticky top-0 z-30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="relative flex-grow max-w-md">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-sky-400" />
               <input
                 type="text"
                 placeholder="Search locations..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full pl-12 pr-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 text-white placeholder:text-sky-500"
               />
             </div>
             <div className="flex gap-2">
@@ -279,8 +310,8 @@ export default function LocationsPage() {
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-4 py-2 rounded-xl font-medium transition-colors ${
                     selectedCategory === cat.id
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white'
+                      : 'bg-white/10 text-sky-200 hover:bg-white/20 border border-white/10'
                   }`}
                 >
                   {cat.label}
@@ -292,7 +323,7 @@ export default function LocationsPage() {
       </section>
 
       {/* Locations Grid */}
-      <section className="py-12">
+      <section className="py-12 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredLocations.map((location, index) => (
@@ -302,16 +333,16 @@ export default function LocationsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow group">
+                <Card className="h-full bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all group">
                   <CardHeader className="pb-4">
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                        <div className="w-14 h-14 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center text-white font-bold text-lg">
                           {location.image}
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{location.name}</CardTitle>
-                          <p className="text-sm text-gray-500 flex items-center gap-1">
+                          <CardTitle className="text-lg text-white">{location.name}</CardTitle>
+                          <p className="text-sm text-sky-400 flex items-center gap-1">
                             <Users className="w-3 h-3" />
                             {location.population}
                           </p>
@@ -319,36 +350,36 @@ export default function LocationsPage() {
                       </div>
                       <button
                         onClick={() => toggleFavorite(location.id)}
-                        className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                        className="p-2 hover:bg-white/10 rounded-full transition-colors"
                       >
                         <Heart 
                           className={`w-5 h-5 transition-colors ${
                             favorites.includes(location.id) 
-                              ? 'fill-red-500 text-red-500' 
-                              : 'text-gray-400'
+                              ? 'fill-amber-400 text-amber-400' 
+                              : 'text-sky-400'
                           }`} 
                         />
                       </button>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <p className="text-sm text-gray-600 line-clamp-2">{location.description}</p>
+                    <p className="text-sm text-sky-300 line-clamp-2">{location.description}</p>
                     
                     <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Thermometer className="w-4 h-4 text-amber-500" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <Thermometer className="w-4 h-4 text-amber-400" />
                         {location.avgTemp}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Sun className="w-4 h-4 text-amber-500" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <Sun className="w-4 h-4 text-amber-400" />
                         {location.climate}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <DollarSign className="w-4 h-4 text-emerald-500" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <DollarSign className="w-4 h-4 text-emerald-400" />
                         {location.costOfLiving}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Briefcase className="w-4 h-4 text-blue-500" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <Briefcase className="w-4 h-4 text-sky-400" />
                         {location.gpSalary}
                       </div>
                     </div>
@@ -357,7 +388,7 @@ export default function LocationsPage() {
                       {location.highlights.slice(0, 3).map((highlight, i) => (
                         <span 
                           key={i}
-                          className="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-xs"
+                          className="px-2 py-0.5 bg-white/10 text-sky-200 rounded text-xs border border-white/10"
                         >
                           {highlight}
                         </span>
@@ -366,7 +397,7 @@ export default function LocationsPage() {
 
                     <Button 
                       variant="outline" 
-                      className="w-full group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-colors"
+                      className="w-full border-white/20 text-sky-200 hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-colors"
                       onClick={() => window.location.href=`/locations/${location.id}/`}
                     >
                       Explore Location
@@ -380,26 +411,31 @@ export default function LocationsPage() {
 
           {filteredLocations.length === 0 && (
             <div className="text-center py-16">
-              <MapPin className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No locations found</h3>
-              <p className="text-gray-600">Try adjusting your search criteria</p>
+              <MapPin className="w-16 h-16 text-sky-700 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-white mb-2">No locations found</h3>
+              <p className="text-sky-400">Try adjusting your search criteria</p>
             </div>
           )}
         </div>
       </section>
 
       {/* Comparison CTA */}
-      <section className="py-20 bg-gradient-to-br from-purple-900 to-indigo-900">
+      <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             Not Sure Which Location is Right for You?
           </h2>
-          <p className="text-xl text-purple-100 mb-8">
+          <p className="text-xl text-sky-300 mb-8">
             Take our personalized quiz to find the best Australian locations 
             based on your preferences, family needs, and career goals.
           </p>
-          <Button size="lg" className="bg-white text-amber-700 hover:bg-gray-100" onClick={() => window.location.href='/contact/'}>
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
+            onClick={() => window.location.href='/contact/'}
+          >
             Get Personalized Recommendations
+            <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </section>

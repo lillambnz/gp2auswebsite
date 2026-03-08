@@ -14,9 +14,9 @@ import {
   ArrowRight,
   Shield,
   Clock,
-  Users
+  Users,
+  Star
 } from "lucide-react"
-import Link from "next/link"
 
 const plans = [
   {
@@ -25,7 +25,7 @@ const plans = [
     price: "$0",
     period: "forever",
     icon: Zap,
-    color: "from-gray-500 to-gray-600",
+    color: "from-sky-500 to-blue-500",
     features: [
       { text: "Registration guides & articles", included: true },
       { text: "Basic cost calculator", included: true },
@@ -90,40 +90,71 @@ const toolkitPlans = [
 
 export default function PricingPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-teal-600 via-emerald-600 to-teal-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
-              <Sparkles className="w-4 h-4 inline mr-1" />
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Sparkles className="w-4 h-4" />
               Simple, Transparent Pricing
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Choose Your Path to Australia
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Choose Your Path to{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                Australia
+              </span>
             </h1>
-            <p className="text-xl text-teal-100 max-w-2xl mx-auto">
+            <p className="text-xl text-sky-200 max-w-2xl mx-auto">
               Start free and upgrade when you need more. No hidden fees. 
               Cancel anytime.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {plans.map((plan, index) => (
@@ -133,10 +164,11 @@ export default function PricingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className={`h-full relative ${plan.popular ? 'border-amber-400 border-2 shadow-xl shadow-amber-500/10' : ''}`}>
+                <Card className={`h-full relative bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all ${plan.popular ? 'border-amber-500/50 ring-1 ring-amber-500/30' : ''}`}>
                   {plan.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                      <span className="px-4 py-1 bg-gradient-to-r from-amber-400 to-orange-500 text-white text-sm font-medium rounded-full">
+                      <span className="px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-sm font-medium rounded-full flex items-center gap-1">
+                        <Star className="w-4 h-4 fill-white" />
                         Most Popular
                       </span>
                     </div>
@@ -145,11 +177,11 @@ export default function PricingPage() {
                     <div className={`w-16 h-16 bg-gradient-to-br ${plan.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}>
                       <plan.icon className="w-8 h-8 text-white" />
                     </div>
-                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                    <p className="text-gray-500 mt-2">{plan.description}</p>
+                    <CardTitle className="text-2xl text-white">{plan.name}</CardTitle>
+                    <p className="text-sky-400 mt-2">{plan.description}</p>
                     <div className="mt-4">
-                      <span className="text-5xl font-bold text-gray-900">{plan.price}</span>
-                      <span className="text-gray-500">{plan.period}</span>
+                      <span className="text-5xl font-bold text-white">{plan.price}</span>
+                      <span className="text-sky-400">{plan.period}</span>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -157,11 +189,11 @@ export default function PricingPage() {
                       {plan.features.map((feature, i) => (
                         <li key={i} className="flex items-start gap-3">
                           {feature.included ? (
-                            <Check className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" />
+                            <Check className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
                           ) : (
-                            <X className="w-5 h-5 text-gray-300 flex-shrink-0 mt-0.5" />
+                            <X className="w-5 h-5 text-sky-700 flex-shrink-0 mt-0.5" />
                           )}
-                          <span className={feature.included ? 'text-gray-700' : 'text-gray-400'}>
+                          <span className={feature.included ? 'text-sky-200' : 'text-sky-600'}>
                             {feature.text}
                           </span>
                         </li>
@@ -170,7 +202,10 @@ export default function PricingPage() {
                     <Button 
                       size="lg" 
                       variant={plan.ctaVariant}
-                      className="w-full"
+                      className={plan.popular 
+                        ? "w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0" 
+                        : "w-full border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
+                      }
                       onClick={() => window.location.href='/contact/'}
                     >
                       {plan.cta}
@@ -184,8 +219,8 @@ export default function PricingPage() {
 
           {/* Money Back Guarantee */}
           <div className="mt-12 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-teal-50 text-teal-700 rounded-full text-sm">
-              <Shield className="w-4 h-4" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 text-sky-300 rounded-full text-sm border border-white/10">
+              <Shield className="w-4 h-4 text-amber-400" />
               7-day money-back guarantee on all paid plans
             </div>
           </div>
@@ -193,48 +228,48 @@ export default function PricingPage() {
       </section>
 
       {/* Toolkit Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#082f4a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Or Get the Complete Toolkit
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               One-time purchase. Lifetime access. No subscription needed.
             </p>
           </div>
 
           <div className="max-w-md mx-auto">
-            <Card className="border-2 border-teal-200">
+            <Card className="bg-white/5 backdrop-blur-sm border-white/10">
               <CardHeader className="text-center">
-                <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-4">
                   <Crown className="w-8 h-8 text-white" />
                 </div>
-                <CardTitle className="text-2xl">Complete Toolkit</CardTitle>
+                <CardTitle className="text-2xl text-white">Complete Toolkit</CardTitle>
                 <div className="mt-4">
-                  <span className="text-5xl font-bold text-gray-900">$199</span>
-                  <span className="text-gray-500"> one-time</span>
+                  <span className="text-5xl font-bold text-white">$199</span>
+                  <span className="text-sky-400"> one-time</span>
                 </div>
-                <p className="text-gray-500 mt-2">Lifetime access. No recurring fees.</p>
+                <p className="text-sky-400 mt-2">Lifetime access. No recurring fees.</p>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3 mb-8">
                   {toolkitPlans[0].features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-teal-500 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-700">{feature}</span>
+                      <Check className="w-5 h-5 text-amber-400 flex-shrink-0 mt-0.5" />
+                      <span className="text-sky-200">{feature}</span>
                     </li>
                   ))}
                 </ul>
                 <Button 
                   size="lg" 
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
                   onClick={() => window.location.href='/contact/'}
                 >
                   Purchase Toolkit
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Button>
-                <p className="text-center text-xs text-gray-500 mt-4">
+                <p className="text-center text-xs text-sky-500 mt-4">
                   Secure payment via Stripe or PayPal
                 </p>
               </CardContent>
@@ -244,10 +279,18 @@ export default function PricingPage() {
       </section>
 
       {/* Why Premium */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-teal-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Why Go Premium?
             </h2>
           </div>
@@ -275,13 +318,13 @@ export default function PricingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 shadow-sm"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
               >
-                <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center mb-4">
-                  <item.icon className="w-6 h-6 text-teal-600" />
+                <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
+                  <item.icon className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-gray-600 text-sm">{item.desc}</p>
+                <h3 className="text-lg font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-orange-100 text-sm">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -289,33 +332,43 @@ export default function PricingPage() {
       </section>
 
       {/* Testimonial */}
-      <section className="py-20 bg-gradient-to-br from-teal-600 to-emerald-700">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <blockquote className="text-2xl sm:text-3xl text-white font-medium mb-6">
             &ldquo;The Premium membership paid for itself in the first week. 
             The consultation alone saved me from making a costly mistake with my visa application.&rdquo;
           </blockquote>
-          <div className="text-teal-100">
-            <div className="font-semibold">Dr. Sarah Chen</div>
+          <div className="text-sky-300">
+            <div className="font-semibold text-amber-300">Dr. Sarah Chen</div>
             <div className="text-sm">Premium Member, now practicing in Melbourne</div>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-20">
+      <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Still Have Questions?
           </h2>
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-sky-300 mb-8">
             Book a free 15-minute call to discuss which option is right for you.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" onClick={() => window.location.href='/contact/'}>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
+              onClick={() => window.location.href='/contact/'}
+            >
               Book Free Call
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <Button size="lg" variant="outline" onClick={() => window.location.href='/contact/'}>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
+              onClick={() => window.location.href='/contact/'}
+            >
               Contact Support
             </Button>
           </div>

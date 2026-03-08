@@ -21,9 +21,9 @@ import {
   CheckCircle,
   ArrowRight,
   Globe,
-  FileCheck
+  FileCheck,
+  Star
 } from "lucide-react"
-import Link from "next/link"
 
 const visaTypes = [
   {
@@ -47,7 +47,7 @@ const visaTypes = [
     ],
     processingTime: "2-6 months",
     cost: "From $3,115 AUD",
-    color: "from-blue-500 to-cyan-500",
+    color: "from-sky-500 to-blue-500",
   },
   {
     id: "subclass-186",
@@ -93,7 +93,7 @@ const visaTypes = [
     ],
     processingTime: "8-12 months",
     cost: "From $4,640 AUD",
-    color: "from-purple-500 to-pink-500",
+    color: "from-amber-500 to-orange-500",
   },
   {
     id: "subclass-190",
@@ -116,7 +116,7 @@ const visaTypes = [
     ],
     processingTime: "8-12 months",
     cost: "From $4,640 AUD",
-    color: "from-amber-500 to-orange-500",
+    color: "from-purple-500 to-pink-500",
   },
 ]
 
@@ -154,45 +154,77 @@ const faqs = [
 
 export default function VisasPage() {
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-[#0c4a6e]">
       <Navigation />
       
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-700 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-          }} />
+      <section className="pt-32 pb-16 bg-gradient-to-b from-[#0c4a6e] via-[#075985] to-[#0369a1] relative overflow-hidden">
+        {/* Stars */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0.2, 0.6, 0.2] }}
+              transition={{ 
+                duration: 2 + (i % 3) * 0.5,
+                repeat: Infinity,
+                delay: i * 0.1
+              }}
+              className="absolute w-1 h-1 bg-white rounded-full"
+              style={{
+                top: `${10 + (i * 5) % 40}%`,
+                left: `${5 + (i * 7) % 90}%`,
+              }}
+            />
+          ))}
         </div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             className="max-w-3xl"
           >
-            <span className="inline-block px-4 py-1.5 bg-white/10 text-white rounded-full text-sm font-medium mb-4 border border-white/20">
+            <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm text-amber-300 rounded-full text-sm font-medium mb-6 border border-white/10">
+              <Star className="w-4 h-4 fill-amber-400" />
               Visa Pathways
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-              Visa Options for International GPs
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+              Visa Options for{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-300 to-amber-400">
+                International GPs
+              </span>
             </h1>
-            <p className="text-xl text-blue-100">
+            <p className="text-xl text-sky-200">
               Understand your visa options for working as a GP in Australia. 
               Compare pathways, requirements, and find the best option for your situation.
             </p>
           </motion.div>
         </div>
+        
+        {/* Mountain silhouette at bottom */}
+        <svg 
+          className="absolute bottom-0 left-0 right-0 w-full h-24"
+          viewBox="0 0 1440 96" 
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,96 L0,60 Q200,40 400,55 T800,50 Q1000,35 1200,50 T1440,45 L1440,96 Z"
+            fill="#0c4a6e"
+            opacity="0.5"
+          />
+        </svg>
       </section>
 
       {/* Visa Types */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Choose Your Visa Pathway
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               Compare the main visa options available for international GPs looking to work in Australia.
             </p>
           </div>
@@ -205,37 +237,37 @@ export default function VisasPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-xl transition-shadow">
+                <Card className="h-full bg-white/5 backdrop-blur-sm border-white/10 hover:bg-white/10 transition-all">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className={`w-14 h-14 bg-gradient-to-br ${visa.color} rounded-xl flex items-center justify-center`}>
                         <visa.icon className="w-7 h-7 text-white" />
                       </div>
-                      <span className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-xs font-medium">
+                      <span className="px-3 py-1 bg-white/10 text-amber-300 rounded-full text-xs font-medium border border-white/10">
                         {visa.subtitle}
                       </span>
                     </div>
-                    <CardTitle className="text-xl mt-4">{visa.title}</CardTitle>
-                    <CardDescription>{visa.description}</CardDescription>
+                    <CardTitle className="text-xl mt-4 text-white">{visa.title}</CardTitle>
+                    <CardDescription className="text-sky-400">{visa.description}</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="flex gap-4 text-sm">
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <Clock className="w-4 h-4 text-amber-400" />
                         {visa.processingTime}
                       </div>
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <DollarSign className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-sky-300">
+                        <DollarSign className="w-4 h-4 text-amber-400" />
                         {visa.cost}
                       </div>
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-sm text-gray-900 mb-2">Requirements</h4>
+                      <h4 className="font-semibold text-sm text-white mb-2">Requirements</h4>
                       <ul className="space-y-1">
                         {visa.requirements.slice(0, 4).map((req, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                            <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
+                          <li key={i} className="flex items-start gap-2 text-sm text-sky-300">
+                            <CheckCircle className="w-4 h-4 text-amber-400 mt-0.5 shrink-0" />
                             {req}
                           </li>
                         ))}
@@ -243,11 +275,11 @@ export default function VisasPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-sm text-gray-900 mb-2">Key Benefits</h4>
+                      <h4 className="font-semibold text-sm text-white mb-2">Key Benefits</h4>
                       <ul className="space-y-1">
                         {visa.benefits.map((benefit, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-gray-600">
-                            <CheckCircle className="w-4 h-4 text-emerald-500 mt-0.5 shrink-0" />
+                          <li key={i} className="flex items-start gap-2 text-sm text-sky-300">
+                            <CheckCircle className="w-4 h-4 text-emerald-400 mt-0.5 shrink-0" />
                             {benefit}
                           </li>
                         ))}
@@ -262,13 +294,13 @@ export default function VisasPage() {
       </section>
 
       {/* Comparison Table */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-[#082f4a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Visa Comparison
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-sky-300">
               Quick comparison of the main visa options
             </p>
           </div>
@@ -276,22 +308,22 @@ export default function VisasPage() {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b-2 border-gray-200">
-                  <th className="text-left py-4 px-4 font-semibold text-gray-900">Feature</th>
-                  <th className="text-center py-4 px-4 font-semibold text-blue-600">482 (TSS)</th>
-                  <th className="text-center py-4 px-4 font-semibold text-emerald-600">186 (ENS)</th>
-                  <th className="text-center py-4 px-4 font-semibold text-purple-600">189 (Skilled)</th>
-                  <th className="text-center py-4 px-4 font-semibold text-amber-600">190 (Nominated)</th>
+                <tr className="border-b-2 border-white/20">
+                  <th className="text-left py-4 px-4 font-semibold text-white">Feature</th>
+                  <th className="text-center py-4 px-4 font-semibold text-sky-400">482 (TSS)</th>
+                  <th className="text-center py-4 px-4 font-semibold text-emerald-400">186 (ENS)</th>
+                  <th className="text-center py-4 px-4 font-semibold text-amber-400">189 (Skilled)</th>
+                  <th className="text-center py-4 px-4 font-semibold text-purple-400">190 (Nominated)</th>
                 </tr>
               </thead>
               <tbody>
                 {comparisonPoints.map((point, index) => (
-                  <tr key={index} className="border-b border-gray-100">
-                    <td className="py-4 px-4 font-medium text-gray-900">{point.label}</td>
-                    <td className="py-4 px-4 text-center text-sm text-gray-600">{point.v482}</td>
-                    <td className="py-4 px-4 text-center text-sm text-gray-600">{point.v186}</td>
-                    <td className="py-4 px-4 text-center text-sm text-gray-600">{point.v189}</td>
-                    <td className="py-4 px-4 text-center text-sm text-gray-600">{point.v190}</td>
+                  <tr key={index} className="border-b border-white/10">
+                    <td className="py-4 px-4 font-medium text-white">{point.label}</td>
+                    <td className="py-4 px-4 text-center text-sm text-sky-300">{point.v482}</td>
+                    <td className="py-4 px-4 text-center text-sm text-sky-300">{point.v186}</td>
+                    <td className="py-4 px-4 text-center text-sm text-sky-300">{point.v189}</td>
+                    <td className="py-4 px-4 text-center text-sm text-sky-300">{point.v190}</td>
                   </tr>
                 ))}
               </tbody>
@@ -301,13 +333,21 @@ export default function VisasPage() {
       </section>
 
       {/* Process */}
-      <section className="py-20 bg-gradient-to-br from-indigo-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-[#9a3412] via-[#c2410c] to-[#d97706] relative overflow-hidden">
+        {/* Decorative pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+            backgroundSize: '40px 40px'
+          }} />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               General Application Process
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-lg text-orange-100">
               Steps you&apos;ll typically follow when applying for an Australian work visa
             </p>
           </div>
@@ -324,13 +364,13 @@ export default function VisasPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-6 text-center shadow-sm"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20"
               >
-                <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">
+                <div className="w-12 h-12 bg-white text-orange-600 rounded-full flex items-center justify-center font-bold text-xl mx-auto mb-4">
                   {item.step}
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.desc}</p>
+                <h3 className="font-semibold text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-orange-100">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -338,21 +378,21 @@ export default function VisasPage() {
       </section>
 
       {/* FAQs */}
-      <section className="py-20">
+      <section className="py-20 bg-[#0c4a6e]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
               Visa FAQs
             </h2>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-xl border border-gray-200 px-6">
-                <AccordionTrigger className="text-left font-medium hover:no-underline py-4">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white/5 backdrop-blur-sm border-white/10 rounded-xl px-6">
+                <AccordionTrigger className="text-left font-medium hover:no-underline py-4 text-white">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 pb-4">
+                <AccordionContent className="text-sky-300 pb-4">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -362,20 +402,30 @@ export default function VisasPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-gradient-to-br from-[#082f4a] to-[#0c4a6e]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
             Need Help with Your Visa Application?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-sky-300 mb-8">
             Connect with our trusted migration partners who specialize in medical visas 
             and have helped thousands of GPs relocate to Australia.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-orange-700 hover:bg-gray-100" onClick={() => window.location.href='/contact/'}>
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-white border-0"
+              onClick={() => window.location.href='/contact/'}
+            >
               Get Visa Consultation
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 bg-transparent" onClick={() => window.location.href='/calculator/'}>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white/20 text-sky-200 hover:bg-white/10 hover:text-white bg-transparent"
+              onClick={() => window.location.href='/calculator/'}
+            >
               Calculate Visa Costs
             </Button>
           </div>
